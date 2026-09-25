@@ -84,7 +84,7 @@ let
                         "https://cache.${config.naps.topology.domain}"
                     ];
                     extra-trusted-public-keys = [
-                        (builtins.readFile "${path}"/.secrets/git/hydra-cache.pub)
+                        (builtins.readFile "${path}/.secrets/git/hydra-cache.pub")
                     ];
                 };
             };
