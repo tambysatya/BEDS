@@ -1,4 +1,4 @@
-args@{flakeRoot, inputs, self, lib, config, napslib,...}:
+args@{flakeRoot, inputs, self, lib, config, napslib, path,...}:
 let
     
     domain = config.naps.topology.domain;
@@ -84,7 +84,7 @@ let
                         "https://cache.${config.naps.topology.domain}"
                     ];
                     extra-trusted-public-keys = [
-                        (builtins.readFile ../../.secrets/git/hydra-cache.pub)
+                        (builtins.readFile "${path}"/.secrets/git/hydra-cache.pub)
                     ];
                 };
             };
