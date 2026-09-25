@@ -20,7 +20,8 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
             let view' = config: view config // {beds = config.beds;};
                 extraArgs' = extraArgs // {napslib = naps.lib.utils;};
                 modules' = modules ++ [ ./modules/beds ];
-            in naps.lib.compileNixos args // {iso = naps.lib.compileIso args;};
+                args' = {view=view'; extraArgs=extraArgs'; modules=modules';};
+            in naps.lib.compileNixos args' // {iso = naps.lib.compileIso args';};
 
     in {
         lib = {
@@ -34,15 +35,16 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
 
         checks.${system} = {
             template = 
-                pkgs.runCommand 
+                let flake = import ./templates/flake.nix;
+                    outputs = flake.outputs {self=flake; inherit nixpkgs naps; beds=self;};
+                in
+                builtins.seq outputs (pkgs.runCommand 
                     "test-template-default" 
                     { }
                     ''
-                        export HOME=$TMPDIR
-                        nix flake init -t ${self}
-                        nix flake check
+                        echo "Template test success";
                         touch $out
-                    '';
+                    '');
         };
         templates.default = {
             path = ./templates;

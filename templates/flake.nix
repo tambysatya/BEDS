@@ -16,7 +16,10 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
 
         args = {
             extraArgs = {path = ./.;};
-            modules = [./examples/example.nix];
+            modules = [
+                ./example.nix # infrastructure
+                ./services/sborfweb/register.nix # custom app
+            ];
         };
     in  beds.lib.exposeApps args // {
         hydraJobs = {
@@ -24,9 +27,6 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         };
         nixosConfigurations = beds.lib.compileNixos args;
         terranix = beds.lib.compileTerranix args;
-
-        naps = beds.lib.compileNAPS args;
-        beds = beds.lib.compileBEDS args;
 
         checks.${system} = beds.lib.gen-config-checks inputs;
   };
