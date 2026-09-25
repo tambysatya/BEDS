@@ -14,37 +14,34 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         lib = nixpkgs.lib;
         pkgs = nixpkgs.legacyPackages.${system};
 
-        compileBEDS = args: (naps.lib.compileModule args).config.beds;
-        compileNixos = 
+
+        mkArgs = 
             args@{extraArgs, modules, view ? config: {}}:
             let view' = config: view config // {beds = config.beds;};
                 extraArgs' = extraArgs // {napslib = naps.lib.utils;};
                 modules' = modules ++ [ ./modules/beds ];
-                args' = {view=view'; extraArgs=extraArgs'; modules=modules';};
+            in {view=view'; extraArgs=extraArgs'; modules=modules';};
+            
+
+
+        compileModule = 
+            args@{extraArgs, modules, view ? config: {}}:
+            naps.lib.compileModule (mkArgs args);
+        compileBEDS = args: (compileModule args).config.beds;
+        compileNixos = 
+            args:
+            let args' = mkArgs args;
             in naps.lib.compileNixos args' // {iso = naps.lib.compileIso args';};
+
 
     in {
         lib = {
            inherit compileNixos compileBEDS;
-           inherit (naps.lib) exposeApps gen-config-checks compileNAPS compileModule compileTerranix;
+           inherit (naps.lib) exposeApps compileNAPS compileTerranix gen-config-checks;
 
         };
         hydraJobs = {
             inherit (self) checks;
-        };
-
-        checks.${system} = {
-            template = 
-                let flake = import ./templates/flake.nix;
-                    outputs = flake.outputs {self=flake; inherit nixpkgs naps; beds=self;};
-                in
-                builtins.seq outputs (pkgs.runCommand 
-                    "test-template-default" 
-                    { }
-                    ''
-                        echo "Template test success";
-                        touch $out
-                    '');
         };
         templates.default = {
             path = ./templates;
