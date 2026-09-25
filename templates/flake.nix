@@ -28,7 +28,7 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         nixosConfigurations = beds.lib.compileNixos args;
         terranix = beds.lib.compileTerranix args;
 
-        #checks.${system} = beds.lib.gen-config-checks inputs;
+        checks.${system} = beds.lib.gen-config-checks inputs;
   };
 }
 

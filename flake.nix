@@ -33,11 +33,13 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
             let args' = mkArgs args;
             in naps.lib.compileNixos args' // {iso = naps.lib.compileIso args';};
 
+        exposeApps = args: naps.lib.exposeApps (mkArgs args);
+
 
     in {
         lib = {
-           inherit compileNixos compileBEDS;
-           inherit (naps.lib) exposeApps compileNAPS compileTerranix gen-config-checks;
+           inherit exposeApps compileNixos compileBEDS;
+           inherit (naps.lib) compileNAPS compileTerranix gen-config-checks;
 
         };
         hydraJobs = {

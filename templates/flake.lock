@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790332973,
-        "narHash": "sha256-eh57+VDLXlecdb9G6cLS21t17gEzG230gFt8IEvvn1k=",
+        "lastModified": 1790334244,
+        "narHash": "sha256-pddhr6/oL4XMeiummGB2kNozlYvzn13Z36+0IEhtKK4=",
         "owner": "tambysatya",
         "repo": "BEDS",
-        "rev": "b58a9636a363dde5986cfe4cd47d9ef9a30f1925",
+        "rev": "df5f9c64fd694bfd3295040e883ce2696378d4ed",
         "type": "github"
       },
       "original": {
