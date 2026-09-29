@@ -39,7 +39,7 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         compileTerranix = 
             args:
             let conf = compileConfig args;
-            in inputs.terranix.lib.terranixConfiguration {
+            in inputs.naps.terranix.lib.terranixConfiguration {
                 inherit system;
                 modules = [conf.naps.outputs.domains];
                 extraArgs = {inherit inputs lib;};
