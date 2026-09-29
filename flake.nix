@@ -27,7 +27,10 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         compileModule = 
             args@{extraArgs, modules, view ? config: {}}:
             naps.lib.compileModule (mkArgs args);
-        compileBEDS = args: (compileModule args).config.beds;
+
+        compileConfig = args: (compileModule args).config;
+        compileBEDS = args: (compileConfig args).beds;
+        compileNAPS = args: (compileConfig args).naps;
         compileNixos = 
             args:
             let args' = mkArgs args;
@@ -38,8 +41,8 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
 
     in {
         lib = {
-           inherit exposeApps compileNixos compileBEDS;
-           inherit (naps.lib) compileNAPS compileTerranix gen-config-checks;
+           inherit exposeApps compileNixos compileNAPS compileBEDS;
+           inherit (naps.lib) compileTerranix gen-config-checks;
 
         };
         hydraJobs = {
