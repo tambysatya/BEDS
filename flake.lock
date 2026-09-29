@@ -68,26 +68,27 @@
         "terranix": "terranix"
       },
       "locked": {
-        "lastModified": 1790161859,
-        "narHash": "sha256-gmSy1C9RAuaC5SSaCEY0nCyDkuruKDtV1quQdACtlsg=",
+        "lastModified": 1790673714,
+        "narHash": "sha256-PCxRmxzMQZcX4rRvgFgJy2s+SsMfB6BabC0GdSAjjqw=",
         "owner": "tambysatya",
         "repo": "naps",
-        "rev": "a4902a58b0a35e89aea8463e211d70a689fdd5cb",
+        "rev": "d64661f2d5b2679d993fed4abee7f43db76bfc98",
         "type": "github"
       },
       "original": {
         "owner": "tambysatya",
+        "ref": "refactor-secrets",
         "repo": "naps",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1790218706,
-        "narHash": "sha256-6e4Na3z008XpdVyOXgfasXIn1aN+z8AXFG+jXdQSyuI=",
+        "lastModified": 1790533781,
+        "narHash": "sha256-F+b8u43BVF5DlM0pz7JQSbtbwKy5PrHIT5zQUekXsD0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c508844df6c28fa6dabc1b6af70f3ccbd65c5201",
+        "rev": "cf5e76507c6e23b59f7e0ffcc7baa2a39ddd8442",
         "type": "github"
       },
       "original": {

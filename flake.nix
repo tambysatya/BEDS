@@ -3,7 +3,7 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
         naps = {
-            url = "github:tambysatya/naps";
+            url = "github:tambysatya/naps?ref=refactor-secrets";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 	};
