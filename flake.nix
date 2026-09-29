@@ -6,9 +6,14 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
             url = "github:tambysatya/naps?ref=refactor-secrets";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        terranix = {
+            url = "github:terranix/terranix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 	};
 
-  outputs = inputs@{nixpkgs, self, naps,
+  outputs = inputs@{nixpkgs, self, naps, terranix,
                     ...}:
     let system ="x86_64-linux";
         lib = nixpkgs.lib;
@@ -39,7 +44,7 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         compileTerranix = 
             args:
             let conf = compileConfig args;
-            in inputs.naps.terranix.lib.terranixConfiguration {
+            in terranix.lib.terranixConfiguration {
                 inherit system;
                 modules = [conf.naps.outputs.domains];
                 extraArgs = {inherit inputs lib;};
