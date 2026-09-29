@@ -25,7 +25,8 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
             let view' = config: view config // {beds = config.beds;};
                 extraArgs' = extraArgs // {napslib = naps.lib.utils;};
                 modules' = modules ++ [ ./modules/beds ];
-            in builtins.trace {init=extraArgs; end=extraArgs';} {view=view'; extraArgs=extraArgs'; modules=modules';};
+                dbg = {init=extraArgs; end=extraArgs';} 
+            in builtins.trace (builtins.deepSeq dbg dbg) {view=view'; extraArgs=extraArgs'; modules=modules';};
             
 
 
