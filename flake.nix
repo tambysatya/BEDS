@@ -39,7 +39,7 @@ description = "Automatic generation of Terraform and NixOS configurations for a 
         compileNixos = 
             args:
             let args' = mkArgs args;
-            in naps.lib.compileNixos args' // {iso = naps.lib.compileIso args';};
+            in naps.lib.compileNixos args';
 
         compileTerranix = 
             args:
